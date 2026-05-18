@@ -15,8 +15,16 @@ interface Props {
 
 export default function ClosetScreen({ onItemClick, addedItems, onOpenAddItem }: Props) {
   const [active, setActive] = useState<"All" | Category>("All");
+  const [query, setQuery] = useState("");
   const allItems = [...closetItems, ...addedItems];
-  const filtered = active === "All" ? allItems : allItems.filter((i) => i.category === active);
+  const categoryFiltered = active === "All" ? allItems : allItems.filter((i) => i.category === active);
+  const filtered = query.trim()
+    ? categoryFiltered.filter(
+        (i) =>
+          i.name.toLowerCase().includes(query.toLowerCase()) ||
+          i.brand.toLowerCase().includes(query.toLowerCase())
+      )
+    : categoryFiltered;
   const totalValue = Math.round(allItems.reduce((s, i) => s + i.price, 0) * 100) / 100;
 
   function pillLabel(f: "All" | Category): string {
@@ -33,10 +41,47 @@ export default function ClosetScreen({ onItemClick, addedItems, onOpenAddItem }:
           My Closet
         </h1>
         <p className="text-xs mt-1" style={{ color: "var(--muted)" }}>
-          {active === "All"
-            ? `${allItems.length} items · Total value $${totalValue}`
-            : `${filtered.length} of ${allItems.length} items · ${active}`}
+          {query.trim()
+            ? `${filtered.length} result${filtered.length !== 1 ? "s" : ""} for "${query}"`
+            : active === "All"
+              ? `${allItems.length} items · Total value $${totalValue}`
+              : `${filtered.length} of ${allItems.length} items · ${active}`}
         </p>
+      </div>
+
+      {/* Search bar */}
+      <div className="px-5 pb-2">
+        <div className="flex items-center gap-2 px-3 py-2.5 rounded-2xl"
+          style={{
+            background: "rgba(255,255,255,0.55)",
+            backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
+            border: "1px solid rgba(255,255,255,0.7)",
+            boxShadow: "0 2px 8px rgba(180,140,160,0.08)",
+          }}>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+            stroke="var(--muted)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="11" cy="11" r="8" />
+            <path d="M21 21l-4.35-4.35" />
+          </svg>
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search by name or brand..."
+            className="flex-1 bg-transparent outline-none text-xs"
+            style={{ color: "var(--espresso)" }}
+          />
+          {query && (
+            <button onClick={() => setQuery("")}
+              style={{ color: "var(--muted)", lineHeight: 1, padding: "0 2px" }}>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Filter pills */}
