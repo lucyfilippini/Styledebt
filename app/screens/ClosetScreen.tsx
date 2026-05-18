@@ -17,7 +17,7 @@ export default function ClosetScreen({ onItemClick, addedItems, onOpenAddItem }:
   const [active, setActive] = useState<"All" | Category>("All");
   const allItems = [...closetItems, ...addedItems];
   const filtered = active === "All" ? allItems : allItems.filter((i) => i.category === active);
-  const totalValue = allItems.reduce((s, i) => s + i.price, 0);
+  const totalValue = Math.round(allItems.reduce((s, i) => s + i.price, 0) * 100) / 100;
 
   function pillLabel(f: "All" | Category): string {
     if (f === "All") return `All (${allItems.length})`;
