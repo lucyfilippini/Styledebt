@@ -44,7 +44,7 @@ export default function HomeScreen({ onItemClick, addedItems, wornCounts }: Prop
         </p>
         <h1 className="display-italic text-4xl font-bold leading-tight"
           style={{ color: "var(--espresso)", letterSpacing: "-0.02em" }}>
-          <span className="shimmer-name">Your Closet</span> ✨
+          <span className="shimmer-name">Guest</span> ✨
         </h1>
       </div>
 
