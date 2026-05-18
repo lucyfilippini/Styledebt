@@ -1,28 +1,15 @@
 "use client";
 
 import BackgroundOrbs from "../components/BackgroundOrbs";
+import { glass } from "../data/theme";
 
 interface Props {
+  onGetStarted: () => void;
   onImportReceipt: () => void;
-  onAddManually: () => void;
   onSkip: () => void;
 }
 
-const irisBtn: React.CSSProperties = {
-  background: "linear-gradient(135deg, #C8A4E8, #F0B8CC, #FFD0B8)",
-  color: "#fff",
-  fontWeight: 700,
-  border: "none",
-  boxShadow: "0 6px 24px rgba(200,164,232,0.35)",
-  cursor: "pointer",
-  width: "100%",
-  padding: "16px",
-  borderRadius: 16,
-  fontSize: 14,
-  fontFamily: "var(--font-dm, system-ui)",
-};
-
-export default function OnboardingScreen({ onImportReceipt, onAddManually, onSkip }: Props) {
+export default function OnboardingScreen({ onGetStarted, onImportReceipt, onSkip }: Props) {
   return (
     <div style={{
       position: "absolute", inset: 0, zIndex: 300,
@@ -42,93 +29,124 @@ export default function OnboardingScreen({ onImportReceipt, onAddManually, onSki
         position: "relative",
         zIndex: 1,
       }}>
-        {/* Icon */}
-        <div style={{ fontSize: 52, marginBottom: 12 }}>✨</div>
+        {/* Logo mark */}
+        <div style={{
+          width: 60, height: 60, borderRadius: "50%",
+          display: "flex", alignItems: "center", justifyContent: "center",
+          marginBottom: 16,
+          background: "linear-gradient(#FAF8F5, #FAF8F5) padding-box, linear-gradient(135deg, #C8A4E8, #F0B8CC, #FFD0B8, #A8C8F0) border-box",
+          border: "2.5px solid transparent",
+          boxShadow: "0 8px 28px rgba(200,164,232,0.30)",
+          fontSize: 22,
+        }}>✦</div>
 
         {/* Logo */}
         <h1 className="display-italic" style={{
-          fontSize: "2.6rem",
+          fontSize: "2.8rem",
           fontWeight: 700,
           color: "#8B3A52",
           marginBottom: 8,
           textAlign: "center",
           letterSpacing: "-0.02em",
+          lineHeight: 1,
         }}>
           StyleDebt
         </h1>
 
         {/* Tagline */}
         <p style={{
-          fontSize: 14,
+          fontSize: 13,
           color: "var(--mocha)",
           textAlign: "center",
-          marginBottom: 36,
+          marginBottom: 32,
           fontFamily: "var(--font-dm, system-ui)",
           fontStyle: "italic",
-          letterSpacing: "0.01em",
+          letterSpacing: "0.015em",
         }}>
           Know what your closet really costs.
         </p>
 
-        {/* Value prop card */}
+        {/* Explanation card */}
         <div style={{
-          background: "rgba(255,255,255,0.55)",
-          backdropFilter: "blur(12px)",
-          WebkitBackdropFilter: "blur(12px)",
-          border: "1px solid rgba(255,255,255,0.7)",
+          ...glass,
           borderRadius: 20,
           padding: "22px 24px",
-          marginBottom: 40,
-          textAlign: "center",
+          marginBottom: 32,
           width: "100%",
-          boxShadow: "0 4px 24px rgba(180,140,160,0.1)",
         }}>
           <p style={{
             fontSize: 13,
             color: "var(--mocha)",
-            lineHeight: 2.1,
+            lineHeight: 1.85,
             fontFamily: "var(--font-dm, system-ui)",
+            textAlign: "center",
+            margin: 0,
           }}>
-            Track what you own.<br />
-            See what you actually wear.<br />
-            Shop smarter.
+            StyleDebt tracks every item in your wardrobe and calculates the real cost-per-wear of everything you own.
+            {" "}Add items by forwarding a shopping receipt — our AI reads it automatically.
+            {" "}Shop smarter, waste less.
           </p>
         </div>
 
         {/* CTA buttons */}
         <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 12 }}>
-          <button onClick={onImportReceipt} style={irisBtn}>
+          {/* Primary: rose gradient */}
+          <button
+            onClick={onGetStarted}
+            style={{
+              background: "linear-gradient(135deg, #A8394F, #C8607A, #E090A0)",
+              boxShadow: "0 6px 24px rgba(168,57,79,0.28)",
+              color: "#fff",
+              fontWeight: 700,
+              border: "none",
+              cursor: "pointer",
+              width: "100%",
+              padding: "16px",
+              borderRadius: 16,
+              fontSize: 14,
+              fontFamily: "var(--font-dm, system-ui)",
+              letterSpacing: "0.01em",
+            }}
+          >
+            Get Started
+          </button>
+
+          {/* Secondary: iridescent gradient */}
+          <button
+            onClick={onImportReceipt}
+            style={{
+              background: "linear-gradient(135deg, #C8A4E8, #F0B8CC, #FFD0B8)",
+              boxShadow: "0 6px 24px rgba(200,164,232,0.35)",
+              color: "#fff",
+              fontWeight: 700,
+              border: "none",
+              cursor: "pointer",
+              width: "100%",
+              padding: "16px",
+              borderRadius: 16,
+              fontSize: 14,
+              fontFamily: "var(--font-dm, system-ui)",
+              letterSpacing: "0.01em",
+            }}
+          >
             📧&nbsp;&nbsp;Import a Receipt
           </button>
 
-          <button onClick={onAddManually} style={{
-            background: "rgba(255,255,255,0.55)",
-            backdropFilter: "blur(12px)",
-            WebkitBackdropFilter: "blur(12px)",
-            border: "1px solid rgba(200,164,232,0.3)",
-            color: "var(--mocha)",
-            padding: "14px",
-            borderRadius: 16,
-            fontSize: 14,
-            cursor: "pointer",
-            width: "100%",
-            fontFamily: "var(--font-dm, system-ui)",
-            fontWeight: 600,
-          }}>
-            Add Items Manually
-          </button>
-
-          <button onClick={onSkip} style={{
-            background: "none",
-            border: "none",
-            color: "var(--muted)",
-            fontSize: 12,
-            cursor: "pointer",
-            padding: "10px",
-            fontFamily: "var(--font-dm, system-ui)",
-            textDecoration: "underline",
-            textDecorationColor: "rgba(107,94,87,0.35)",
-          }}>
+          {/* Skip link */}
+          <button
+            onClick={onSkip}
+            style={{
+              background: "none",
+              border: "none",
+              color: "var(--muted)",
+              fontSize: 12,
+              cursor: "pointer",
+              padding: "10px",
+              fontFamily: "var(--font-dm, system-ui)",
+              textDecoration: "underline",
+              textDecorationColor: "rgba(107,94,87,0.35)",
+            }}
+          >
             Skip for now
           </button>
         </div>

@@ -12,8 +12,11 @@ import OutfitScreen from "./screens/OutfitScreen";
 import ShopScreen from "./screens/ShopScreen";
 import ItemDetailScreen from "./screens/ItemDetailScreen";
 import ReceiptFlow from "./components/ReceiptFlow";
+import OnboardingScreen from "./screens/OnboardingScreen";
 
 type Screen = "home" | "closet" | "outfit" | "shop";
+
+const ONBOARDING_KEY = "styledebt_onboarded";
 
 export default function StyleDebtApp() {
   const [activeScreen, setActiveScreen] = useState<Screen>("home");
@@ -23,6 +26,29 @@ export default function StyleDebtApp() {
   const [toast, setToast] = useState<string | null>(null);
   const [toastVisible, setToastVisible] = useState(false);
   const [wornCounts, setWornCounts] = useState<Record<string, number>>({});
+  const [showOnboarding, setShowOnboarding] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && !localStorage.getItem(ONBOARDING_KEY)) {
+      setShowOnboarding(true);
+    }
+  }, []);
+
+  function completeOnboarding() {
+    localStorage.setItem(ONBOARDING_KEY, "1");
+    setShowOnboarding(false);
+  }
+
+  function handleOnboardingGetStarted() {
+    completeOnboarding();
+    setActiveScreen("home");
+  }
+
+  function handleOnboardingImportReceipt() {
+    completeOnboarding();
+    setActiveScreen("closet");
+    setShowAddItem(true);
+  }
 
   useEffect(() => {
     if (!toast) return;
@@ -55,6 +81,14 @@ export default function StyleDebtApp() {
     <div style={{ background: "#E8E0D8", minHeight: "100dvh", display: "flex",
       alignItems: "flex-start", justifyContent: "center" }}>
       <div className="app-shell">
+        {showOnboarding && (
+          <OnboardingScreen
+            onGetStarted={handleOnboardingGetStarted}
+            onImportReceipt={handleOnboardingImportReceipt}
+            onSkip={handleOnboardingGetStarted}
+          />
+        )}
+
         <BackgroundOrbs />
 
         <StatusBar />
