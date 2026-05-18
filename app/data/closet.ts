@@ -172,9 +172,9 @@ export function avgWears(items?: ClothingItem[]): number {
 }
 
 export const savedOutfits = [
-  { id: "o1", name: "Campus Casual", items: ["1", "9", "5"] },
-  { id: "o2", name: "Weekend Brunch", items: ["8", "4", "12"] },
-  { id: "o3", name: "Library Chic",   items: ["11", "3", "6"] },
+  { id: "o1", name: "Everyday Errands", items: ["1", "9", "5"] },
+  { id: "o2", name: "Coffee Run",       items: ["8", "4", "12"] },
+  { id: "o3", name: "Night Out",        items: ["11", "3", "6"] },
 ];
 
 export interface ShopRec {
