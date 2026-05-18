@@ -32,12 +32,15 @@ export default function HomeScreen({ onItemClick, addedItems, wornCounts }: Prop
 
   const recent = allItems.slice(0, 6);
 
+  const hour = new Date().getHours();
+  const greeting = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
+
   return (
     <div className="screen-scroll flex-1 pb-6">
       {/* Greeting */}
       <div className="px-5 pt-5 pb-5">
         <p className="text-sm mb-1" style={{ color: "var(--mocha)", letterSpacing: "0.01em" }}>
-          Good morning,
+          {greeting},
         </p>
         <h1 className="display-italic text-4xl font-bold leading-tight"
           style={{ color: "var(--espresso)", letterSpacing: "-0.02em" }}>
