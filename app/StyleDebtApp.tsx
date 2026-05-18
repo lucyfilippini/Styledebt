@@ -83,7 +83,7 @@ export default function StyleDebtApp() {
               fontSize: 13, fontWeight: 700, color: "#8B3A52",
               fontFamily: "var(--font-playfair, Georgia, serif)",
               fontStyle: "italic",
-            }}>L</div>
+            }}>✦</div>
           </div>
         )}
 

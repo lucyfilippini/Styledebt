@@ -41,7 +41,7 @@ export default function HomeScreen({ onItemClick, addedItems, wornCounts }: Prop
         </p>
         <h1 className="display-italic text-4xl font-bold leading-tight"
           style={{ color: "var(--espresso)", letterSpacing: "-0.02em" }}>
-          <span className="shimmer-name">Lucy</span> 👋
+          <span className="shimmer-name">Your Closet</span> ✨
         </h1>
       </div>
 
@@ -150,7 +150,7 @@ export default function HomeScreen({ onItemClick, addedItems, wornCounts }: Prop
           <div>
             <p className="text-xs font-semibold mb-1" style={{ color: "var(--espresso)" }}>StyleDebt tip</p>
             <p className="text-xs leading-relaxed" style={{ color: "var(--mocha)" }}>
-              Your Air Force 1s cost $1.64/wear — cheaper than your morning coffee. Keep going!
+              Your most-worn item costs less per wear than your morning coffee. Keep going!
             </p>
           </div>
         </div>
